@@ -5,28 +5,31 @@
 using namespace std;
 #pragma once
 
-template <class MyData>
-struct Nod {
-	MyData data;
-	Nod<MyData> *next;
-};
-
-template <class MyData>
-class Member {
-private:
-	int total; //page 123
+struct Details {
 	string name;
 	int memberID;
-	char gender; // M->Male ,, F->Female
+	char gender; // M->Male , F->Female
 	int ic;
 	int age;
-	int type;
+	char type;
 	double height, weight;
+};
+
+struct Node {
+	Details data;
+	Node* next;
+};
+
+class Member {
+private:
+	int count; //page 123
+	Node* front;
+	Node* rear;
 
 public:
 	Member();
 	~Member();
-	void addNew();
+	void enqueueMember();
 	
 
 };
