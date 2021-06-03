@@ -2,18 +2,24 @@
 #define MEMBER_H
 
 #include <string>
+#include <fstream>
+#include <cctype>
+#include <cmath>
+#include <iomanip>
 using namespace std;
 #pragma once
 
 struct Details {
 	string name;
 	int memberID;
-	char gender; // M-Male , F-Female
-	char ic[12];
+	//char toupper(gender); // M-Male , F-Female
+	char gender;
+	string ic; // char ic[12]; can convert to char
 	int age;
 	char type; // M-Monthly , A-Annually
-	char expDate;
+	string expDate; // char expDate
 	double height, weight;
+	float bmi;
 };
 
 struct Node {
@@ -22,6 +28,7 @@ struct Node {
 };
 
 const int maxSize = 500;
+//int memID = 0;
 
 class Member {
 private:
@@ -30,22 +37,28 @@ private:
 	Node* rear;
 
 	int size;
+	int memID = 0;
 	Details memberList[maxSize];
 
 	Details sortedList[maxSize];
 
 public:
+	int total = 0;
 	Member();
 	~Member();
 	void enqueueMember();	//new registration
-	char getExpiryDate(char);
+	string getExpiryDate(char);
 	void dequeueMember();
 	bool Empty();
 	
 	void addItem();	//process registration
+<<<<<<< HEAD
 
 	void simpleSort();	//display item
 	void displaySortedList();
+=======
+	void loadData(); // load existing data from stored file
+>>>>>>> master
 };
 
 #endif // !MEMBER_H

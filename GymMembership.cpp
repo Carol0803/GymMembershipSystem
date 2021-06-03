@@ -11,27 +11,40 @@ int main()
     Member New;
     int selectMenu;
 
+    // cout << New.total << endl; // to display total data before loadData
+
+    New.loadData();
+
+    // cout << New.total; // to display total data after loadData
+
     do {
         displayMainMenu();
         cin >> selectMenu;
         if (selectMenu < 0 || selectMenu > 4) {
             cout << "\nNo operation selected. Try again.\n";
         }
-        if (selectMenu == 0) {
+        else if (selectMenu == 0) {
             cout << "\nExiting Program....\n";
             break;
         }
-        if (selectMenu == 1) {
+        else if (selectMenu == 1) {
             New.enqueueMember();
         }
-        if (selectMenu == 2) {
+        else if (selectMenu == 2) {
             New.addItem();
         }
+<<<<<<< HEAD
         if (selectMenu == 4) {
             New.simpleSort();
             New.displaySortedList();
         }
     } while (selectMenu > -1 || selectMenu < 5);
+=======
+        else if (selectMenu == 3) {
+        }
+        else {}
+    } while (selectMenu > -1 && selectMenu < 5);
+>>>>>>> master
 
     return 0;
 }
