@@ -24,6 +24,9 @@ int main()
         if (selectMenu == 1) {
             New.enqueueMember();
         }
+        if (selectMenu == 2) {
+            New.addItem();
+        }
     } while (selectMenu > -1 || selectMenu < 5);
 
 }
@@ -31,11 +34,11 @@ int main()
 void displayMainMenu() {
     cout << "\nEnter 1-4 to select menu, 0 to exit program\n";
     cout << "\n1.\tNew member registration\n";
-    cout << "2.\tRenew subscription\n";
-    cout << "3.\tView Member namelist\n";
-    cout << "4.\tView expired member namelist\n";
+    cout << "\n2.\tProcess registration\n";
+    cout << "3.\tRenew subscription\n";
+    cout << "4.\tView Member namelist\n";                                                                                                                                                                                            
+    cout << "5.\tView expired member namelist\n";
     cout << "0.\tExit program.\n";
-
-    cout << "\nYour selection: ";
+    cout << "\nYour selection: ";                     
 }
 

@@ -21,22 +21,26 @@ struct Node {
 	Node* next;
 };
 
+const int maxSize = 500;
+
 class Member {
 private:
 	int count; //page 123
 	Node* front;
 	Node* rear;
 
+	int size;
+	Details memberList[maxSize];
+
 public:
 	Member();
 	~Member();
-	void enqueueMember();
+	void enqueueMember();	//new registration
 	char getExpiryDate(char);
 	void dequeueMember();
-	Details queueFront();
 	bool Empty();
 	
-
+	void addItem();	//process registration
 };
 
 #endif // !MEMBER_H
