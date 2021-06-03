@@ -52,13 +52,12 @@ public:
 	bool Empty();
 	
 	void addItem();	//process registration
-<<<<<<< HEAD
 
 	void simpleSort();	//display item
 	void displaySortedList();
-=======
+
 	void loadData(); // load existing data from stored file
->>>>>>> master
+
 };
 
 #endif // !MEMBER_H

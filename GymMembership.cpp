@@ -33,18 +33,14 @@ int main()
         else if (selectMenu == 2) {
             New.addItem();
         }
-<<<<<<< HEAD
-        if (selectMenu == 4) {
-            New.simpleSort();
-            New.displaySortedList();
-        }
-    } while (selectMenu > -1 || selectMenu < 5);
-=======
         else if (selectMenu == 3) {
+        }
+        else if (selectMenu == 4) {
+        New.simpleSort();
+        New.displaySortedList();
         }
         else {}
     } while (selectMenu > -1 && selectMenu < 5);
->>>>>>> master
 
     return 0;
 }
