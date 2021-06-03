@@ -8,10 +8,11 @@ using namespace std;
 struct Details {
 	string name;
 	int memberID;
-	char gender; // M->Male , F->Female
-	int ic;
+	char gender; // M-Male , F-Female
+	char ic[12];
 	int age;
-	char type;
+	char type; // M-Monthly , A-Annually
+	char expDate;
 	double height, weight;
 };
 
@@ -20,18 +21,26 @@ struct Node {
 	Node* next;
 };
 
+const int maxSize = 500;
+
 class Member {
 private:
 	int count; //page 123
 	Node* front;
 	Node* rear;
 
+	int size;
+	Details memberList[maxSize];
+
 public:
 	Member();
 	~Member();
-	void enqueueMember();
+	void enqueueMember();	//new registration
+	char getExpiryDate(char);
+	void dequeueMember();
+	bool Empty();
 	
-
+	void addItem();	//process registration
 };
 
 #endif // !MEMBER_H
