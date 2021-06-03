@@ -32,6 +32,8 @@ private:
 	int size;
 	Details memberList[maxSize];
 
+	Details sortedList[maxSize];
+
 public:
 	Member();
 	~Member();
@@ -41,6 +43,9 @@ public:
 	bool Empty();
 	
 	void addItem();	//process registration
+
+	void simpleSort();	//display item
+	void displaySortedList();
 };
 
 #endif // !MEMBER_H

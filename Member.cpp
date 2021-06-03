@@ -1,5 +1,6 @@
 #include<iostream>
 #include <ctime>
+#include<iomanip>
 #include "Member.h"
 using namespace std;
 
@@ -122,16 +123,16 @@ bool Member::Empty() {
 }
 
 void Member::addItem() {
-	if(size==maxSize)
-	{
-		cout << "Max number of members reached.";
-		return;
-	}
+	
 	for (int i = 0; size < maxSize - 1; i++) {
 
 		if (Empty())
 			break;
-
+		if (size == maxSize){
+			cout << "Max number of members reached.";
+			return;
+		}
+		
 		memberList[i].name = front->data.name;
 		memberList[i].memberID = front->data.memberID;
 		memberList[i].gender = front->data.gender;
@@ -145,5 +146,43 @@ void Member::addItem() {
 
 		dequeueMember();
 		size++;
+	}
+}
+
+void Member::simpleSort() {
+	for (int i = 0; i < size - 1; i++) {
+		int min = i;
+		for (int j = i + 1; j < size; j++) {
+			int a = 0;
+			while (memberList[j].name[a] == memberList[min].name[a]) {
+				a++;
+				if (memberList[j].name[a] != memberList[min].name[a])
+					break;
+			}
+			if (memberList[j].name[a] < memberList[min].name[a])
+				min = j;
+		}
+	
+		Details temp;
+		temp = memberList[min];
+		memberList[min] = memberList[i];
+		memberList[i] = temp;
+	}
+}
+
+
+void Member::displaySortedList () {
+	cout << setw(10) << "\n\tMember's Namelist\n" << setw(10) << endl;
+
+	cout <<left << setw(4) << "NO." << setw(25) << "NAME" << setw(17) << "IC NO." << setw(8) << "AGE" << setw(12) << "GENDER"
+		<< setw(12) << "HEIGHT" << setw(12) << "WEIGHT" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
+		<< setw(15) << "EXPIRY DATE" << endl;
+	for (int i = 0; i < size; i++) {
+		int a = 0;
+		cout << left<< setw(4) << i + 1 << setw(25) << memberList[i].name << setw(17) << memberList[i].ic[a] << setw(8)
+			<< memberList[i].age << setw(12) << memberList[i].gender << setw(12) << memberList[i].height << setw(12)
+			<< memberList[i].weight << setw(20) << memberList[i].type << setw(15) << memberList[i].memberID
+			<< setw(15) << memberList[i].expDate << endl;
+		a++;
 	}
 }

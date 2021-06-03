@@ -27,14 +27,19 @@ int main()
         if (selectMenu == 2) {
             New.addItem();
         }
+        if (selectMenu == 4) {
+            New.simpleSort();
+            New.displaySortedList();
+        }
     } while (selectMenu > -1 || selectMenu < 5);
 
+    return 0;
 }
 
 void displayMainMenu() {
     cout << "\nEnter 1-4 to select menu, 0 to exit program\n";
     cout << "\n1.\tNew member registration\n";
-    cout << "\n2.\tProcess registration\n";
+    cout << "2.\tProcess registration\n";
     cout << "3.\tRenew subscription\n";
     cout << "4.\tView Member namelist\n";                                                                                                                                                                                            
     cout << "5.\tView expired member namelist\n";
