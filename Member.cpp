@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 #include <ctime>
 #include "Member.h"
 using namespace std;
@@ -23,8 +23,8 @@ void Member::enqueueMember() {
 	getline(cin, N->data.name);
 	
 	cout << "Enter IC Number: ";
-	for (int i = 0; i < 12; i++)
-		cin >> N->data.ic[i];
+	//for (int i = 0; i < 12; i++)
+		cin >> N->data.ic;
 
 	//generate age
 	int year;
@@ -43,13 +43,20 @@ void Member::enqueueMember() {
 	char subsType = N->data.type;
 	N->data.expDate = getExpiryDate(subsType);
 
-	cout << "Enter height: ";
+	//cout << N->data.expDate << endl; // uncomment this if u want to see the output
+
+	cout << "Enter height(in metre): ";
 	cin >> N->data.height;
 
-	cout << "Enter weight: ";
+	cout << "Enter weight(in kg): ";
 	cin >> N->data.weight;
 
-	//generate member ID
+	N->data.bmi = ("%.2f", (N->data.weight / pow(N->data.height, 2)));
+	cout << (float) N->data.bmi;
+
+	//generate member ID 
+	//memID++;
+	N->data.memberID = ++memID;
 
 	N->next = NULL;
 
@@ -62,12 +69,13 @@ void Member::enqueueMember() {
 	rear = N;
 }
 
-char Member::getExpiryDate(char subsType) {
+string Member::getExpiryDate(char subsType) {
 	#pragma warning(disable : 4996)
 	time_t currenttime = time(0);
 	tm* now = localtime(&currenttime);
 
 	int Cyear, Cmonth, Cday;
+	string day, month, year;
 	Cyear = 1900 + now->tm_year;
 	Cmonth = 1 + now->tm_mon;
 	Cday = now->tm_mday;
@@ -75,9 +83,9 @@ char Member::getExpiryDate(char subsType) {
 	int daysOfMonth[] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
 	int addDays = 0;
 
-	if (subsType == 'M')
+	if (subsType == 'M' || subsType == 'm')
 		addDays = 30;
-	else if (subsType == 'A')
+	else if (subsType == 'A' || subsType == 'a')
 		addDays = 365;
 
 	for (int i = 0; i < addDays; i++) {
@@ -93,14 +101,19 @@ char Member::getExpiryDate(char subsType) {
 			Cyear++;
 		}
 	}
-	
-	cout << Cday << Cmonth << Cyear << endl;
+
+	day = (Cday < 10) ? "0" + to_string(Cday) : to_string(Cday);
+	month = (Cmonth < 10) ? "0" + to_string(Cmonth) : to_string(Cmonth);
+	year = to_string(Cyear);
+
+//	cout << day << "/" << month << "/" << year << endl; //uncomment to see the difference
+//	cout << Cday << "/" << Cmonth << "/" << Cyear << endl;
+
 	//char expDate = Cday + Cmonth + Cyear;
 	//cout << expDate;
 	//string expDate2 = to_string(Cday);
 
-	
-	return 0;
+	return day + month + year;
 }
 
 void Member::dequeueMember() {
@@ -122,7 +135,7 @@ bool Member::Empty() {
 }
 
 void Member::addItem() {
-	if(size==maxSize)
+	if(size == maxSize)
 	{
 		cout << "Max number of members reached.";
 		return;
@@ -142,8 +155,40 @@ void Member::addItem() {
 		memberList[i].expDate = front->data.expDate;
 		memberList[i].height = front->data.height;
 		memberList[i].weight = front->data.weight;
+		memberList[i].bmi = front->data.bmi;
 
 		dequeueMember();
 		size++;
 	}
+	//here add write file function to data.txt
+}
+
+void Member::loadData() {
+	static int n[1000];
+	int existingSize = 0;
+
+		ifstream readFile("data.txt", ios::in);
+
+		while (readFile.is_open()) {
+			readFile >> existingSize;
+			size = existingSize; // get total of data has been stored
+			for (int i = 0; i < size; i++) {
+				readFile.get();
+				getline(readFile, memberList[i].name); 
+				getline(readFile, memberList[i].ic);
+				readFile
+					>> memberList[i].memberID
+					>> memberList[i].gender
+					>> memberList[i].age
+					>> memberList[i].type
+					>> memberList[i].expDate
+					>> memberList[i].height
+					>> memberList[i].weight
+					>> memberList[i].bmi;
+				memID = memberList[i].memberID; // get latest value of memberID to generate new memberID for new registration
+			}
+		cout << "File Loaded Successfully" << endl;
+		total = size;
+			readFile.close();
+		}
 }
