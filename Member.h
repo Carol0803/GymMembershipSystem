@@ -11,7 +11,7 @@ using namespace std;
 
 struct Details {
 	string name;
-	int memberID;
+	string memberID;
 	//char toupper(gender); // M-Male , F-Female
 	char gender;
 	string ic; // char ic[12]; can convert to char
@@ -28,7 +28,6 @@ struct Node {
 };
 
 const int maxSize = 500;
-//int memID = 0;
 
 class Member {
 private:
@@ -41,6 +40,7 @@ private:
 	Details memberList[maxSize];
 
 	Details sortedList[maxSize];
+	
 
 public:
 	int total = 0;
@@ -56,7 +56,7 @@ public:
 	void simpleSort();	//display item
 	void displaySortedList();
 
-	void loadData(); // load existing data from stored file
+	//void loadData(); // load existing data from stored file
 
 };
 

@@ -13,7 +13,7 @@ int main()
 
     // cout << New.total << endl; // to display total data before loadData
 
-    New.loadData();
+    //New.loadData();
 
     // cout << New.total; // to display total data after loadData
 

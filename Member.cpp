@@ -15,7 +15,9 @@ Member::Member() {
 Member::~Member() {}
 
 void Member::enqueueMember() {
-	cout << "\n\tNew member registration\n";
+	cout << "======================================================\n";
+	cout << "\t\tNEW MEMBER REGISTRATION" << endl;
+	cout << "======================================================\n";
 
 	Node* N = new Node;
 
@@ -53,11 +55,21 @@ void Member::enqueueMember() {
 	cin >> N->data.weight;
 
 	N->data.bmi = ("%.2f", (N->data.weight / pow(N->data.height, 2)));
-	cout << (float) N->data.bmi;
+	//cout << (float) N->data.bmi;
 
 	//generate member ID 
-	//memID++;
-	//N->data.memberID = ++memID;
+	memID++;
+	if (memID < 10)
+		N->data.memberID = "00" + to_string(memID);
+	else if (9 < memID < 100)
+		N->data.memberID = "0" + to_string(memID);
+	else
+		N->data.memberID = to_string(memID);
+
+	if (subsType == 'M' || subsType == 'm')
+		N->data.memberID = "M" + N->data.memberID;
+	else if (subsType == 'A' || subsType == 'a')
+		N->data.memberID = "A" + N->data.memberID;
 
 	N->next = NULL;
 
@@ -103,8 +115,8 @@ string Member::getExpiryDate(char subsType) {
 		}
 	}
 
-	day = (Cday < 10) ? "0" + to_string(Cday) : to_string(Cday);
-	month = (Cmonth < 10) ? "0" + to_string(Cmonth) : to_string(Cmonth);
+	day = (Cday < 10) ? "0" + to_string(Cday) + "/" : to_string(Cday) + "/";
+	month = (Cmonth < 10) ? "0" + to_string(Cmonth) + "/" : to_string(Cmonth) +"/";
 	year = to_string(Cyear);
 
 //	cout << day << "/" << month << "/" << year << endl; //uncomment to see the difference
@@ -136,17 +148,20 @@ bool Member::Empty() {
 }
 
 void Member::addItem() {
+	cout << "======================================================\n";
+	cout << "\t\tPROCESS REGISTRATION" << endl;
+	cout << "======================================================\n";
+	cout << "Processing..." << endl;
+
 	if(size == maxSize)
 	{
 		cout << "Max number of members reached.";
 		return;
 	}
 
-	for (int i = 0; size < maxSize - 1; i++) {
 
-		if (Empty())
-			break;
-		if (size == maxSize){
+	for (int i = size; size < maxSize - 1; i++) {
+		if (size == maxSize) {
 			cout << "Max number of members reached.";
 			return;
 		}
@@ -161,9 +176,11 @@ void Member::addItem() {
 		memberList[i].height = front->data.height;
 		memberList[i].weight = front->data.weight;
 		memberList[i].bmi = front->data.bmi;
-
-		dequeueMember();
 		size++;
+		
+		dequeueMember();
+		if (Empty())
+			break;
 	}
 	//here add write file function to data.txt
 }
@@ -191,20 +208,35 @@ void Member::simpleSort() {
 }
 
 void Member::displaySortedList () {
-	cout << setw(10) << "\n\tMember's Namelist\n" << setw(10) << endl;
+	string gender[maxSize], type[maxSize];
+	for (int a = 0; a < size; a++) {
+		if (memberList[a].gender == 'M' || memberList[a].gender == 'm')
+			gender[a] = "Male";
+		else if (memberList[a].gender == 'F' || memberList[a].gender == 'f')
+			gender[a] = "Female";
 
-	cout <<left << setw(4) << "NO." << setw(25) << "NAME" << setw(17) << "IC NO." << setw(8) << "AGE" << setw(12) << "GENDER"
-		<< setw(12) << "HEIGHT" << setw(12) << "WEIGHT" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
+		if (memberList[a].type == 'M' || memberList[a].type == 'm')
+			type[a] = "Monthly";
+		else if (memberList[a].type == 'A' || memberList[a].type == 'a')
+			type[a] = "Annually";
+	}
+
+	cout << "===================================================================================================================================\n";
+	cout << right << setw(75) << "MEMBER'S NAMELIST" << endl;
+	cout << "===================================================================================================================================\n";
+
+	cout <<left << setw(4) << "NO." << setw(20) << "NAME" << setw(17) << "IC NO." << setw(8) << "AGE" << setw(12) << "GENDER"
+		<< setw(12) << "HEIGHT(M)" << setw(12) << "WEIGHT(KG)" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
 		<< setw(15) << "EXPIRY DATE" << endl;
 	for (int i = 0; i < size; i++) {
-		cout << left<< setw(4) << i + 1 << setw(25) << memberList[i].name << setw(17) << memberList[i].ic << setw(8)
-			<< memberList[i].age << setw(12) << memberList[i].gender << setw(12) << memberList[i].height << setw(12)
-			<< memberList[i].weight << setw(20) << memberList[i].type << setw(15) << memberList[i].memberID
+		cout << fixed << left<< setw(4) << i + 1 << setw(20) << memberList[i].name << setw(17) << memberList[i].ic << setw(8)
+			<< memberList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << memberList[i].height << setw(12)
+			<< setprecision(2) << memberList[i].weight << setw(20) << type[i] << setw(15) << memberList[i].memberID
 			<< setw(15) << memberList[i].expDate << endl;
 	}
 }
 
-void Member::loadData() {
+/*void Member::loadData() {
 	static int n[1000];
 	int existingSize = 0;
 
@@ -232,5 +264,5 @@ void Member::loadData() {
 		total = size;
 			readFile.close();
 		}
-}
+}*/
 
