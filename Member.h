@@ -20,7 +20,7 @@ struct Details {
 	char type; // M-Monthly , A-Annually
 	string expDate; // char expDate
 	double height, weight;
-	float bmi;
+	double bmi;
 };
 
 struct Node {
