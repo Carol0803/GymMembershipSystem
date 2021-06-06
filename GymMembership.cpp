@@ -39,10 +39,6 @@ int main()
         else if (selectMenu == 5) { // view expired namelist
             New.displayExpired();
         }
-        else if (selectMenu == 4) {
-        New.simpleSort();
-        New.displaySortedList();
-        }
         else {}
     } while (selectMenu > -1 && selectMenu < 6);
 

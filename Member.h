@@ -60,9 +60,6 @@ public:
 	void displaySortedList();
 	void addItem();	//process registration
 
-	void simpleSort();	//display item
-	void displaySortedList();
-
 	void loadData(); // load existing data from stored file
 
 };
