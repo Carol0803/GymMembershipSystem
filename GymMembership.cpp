@@ -11,11 +11,14 @@ int main()
     Member New;
     int selectMenu;
 
+<<<<<<< HEAD
     // cout << New.total << endl; // to display total data before loadData
 
     //New.loadData();
 
     // cout << New.total; // to display total data after loadData
+=======
+>>>>>>> upstream/master
 
     do {
         displayMainMenu();

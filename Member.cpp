@@ -55,6 +55,7 @@ void Member::enqueueMember() {
 	cin >> N->data.weight;
 
 	N->data.bmi = ("%.2f", (N->data.weight / pow(N->data.height, 2)));
+<<<<<<< HEAD
 	//cout << (float) N->data.bmi;
 
 	//generate member ID 
@@ -70,6 +71,8 @@ void Member::enqueueMember() {
 		N->data.memberID = "M" + N->data.memberID;
 	else if (subsType == 'A' || subsType == 'a')
 		N->data.memberID = "A" + N->data.memberID;
+=======
+>>>>>>> upstream/master
 
 	N->next = NULL;
 
@@ -152,13 +155,17 @@ void Member::addItem() {
 	cout << "\t\tPROCESS REGISTRATION" << endl;
 	cout << "======================================================\n";
 	cout << "Processing..." << endl;
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 	if(size == maxSize)
 	{
 		cout << "Max number of members reached.";
 		return;
 	}
 
+<<<<<<< HEAD
 
 	for (int i = size; size < maxSize - 1; i++) {
 		if (size == maxSize) {
@@ -166,6 +173,8 @@ void Member::addItem() {
 			return;
 		}
 		
+=======
+>>>>>>> upstream/master
 		memberList[i].name = front->data.name;
 		memberList[i].memberID = front->data.memberID;
 		memberList[i].gender = front->data.gender;
@@ -176,6 +185,7 @@ void Member::addItem() {
 		memberList[i].height = front->data.height;
 		memberList[i].weight = front->data.weight;
 		memberList[i].bmi = front->data.bmi;
+<<<<<<< HEAD
 		size++;
 		
 		dequeueMember();
@@ -184,8 +194,11 @@ void Member::addItem() {
 	}
 	//here add write file function to data.txt
 }
+=======
 
+>>>>>>> upstream/master
 
+<<<<<<< HEAD
 void Member::simpleSort() {
 	for (int i = 0; i < size - 1; i++) {
 		int min = i;
@@ -233,9 +246,12 @@ void Member::displaySortedList () {
 			<< memberList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << memberList[i].height << setw(12)
 			<< setprecision(2) << memberList[i].weight << setw(20) << type[i] << setw(15) << memberList[i].memberID
 			<< setw(15) << memberList[i].expDate << endl;
+=======
+>>>>>>> upstream/master
 	}
 }
 
+<<<<<<< HEAD
 /*void Member::loadData() {
 	static int n[1000];
 	int existingSize = 0;
@@ -265,4 +281,6 @@ void Member::displaySortedList () {
 			readFile.close();
 		}
 }*/
+=======
+>>>>>>> upstream/master
 
