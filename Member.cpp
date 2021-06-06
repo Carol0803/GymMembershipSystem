@@ -22,7 +22,7 @@ void Member::enqueueMember() {
 	cin.ignore();
 	cout << "Enter name: ";
 	getline(cin, N->data.name);
-	
+
 	cout << "Enter IC Number: ";
 	//for (int i = 0; i < 12; i++)
 	cin >> N->data.ic;
@@ -53,11 +53,10 @@ void Member::enqueueMember() {
 	cin >> N->data.weight;
 
 	N->data.bmi = ("%.2f", (N->data.weight / pow(N->data.height, 2)));
-	cout << (float) N->data.bmi;
+	cout << (float)N->data.bmi;
 
 	//generate member ID 
 	N->data.memberID = ++memID;
-	cout << N->data.memberID << endl;
 
 	N->next = NULL;
 
@@ -71,26 +70,8 @@ void Member::enqueueMember() {
 	size++;
 }
 
-string Member::getCurrentDate() {
-	#pragma warning(disable : 4996)
-	time_t currenttime = time(0);
-	tm* now = localtime(&currenttime);
-
-	int Cyear, Cmonth, Cday;
-	string day, month, year;
-	Cyear = 1900 + now->tm_year;
-	Cmonth = 1 + now->tm_mon;
-	Cday = now->tm_mday;
-
-	day = (Cday < 10) ? "0" + to_string(Cday) : to_string(Cday);
-	month = (Cmonth < 10) ? "0" + to_string(Cmonth) : to_string(Cmonth);
-	year = to_string(Cyear);
-
-	return day + month + year;
-}
-
 string Member::getExpiryDate(char subsType) {
-	#pragma warning(disable : 4996)
+#pragma warning(disable : 4996)
 	time_t currenttime = time(0);
 	tm* now = localtime(&currenttime);
 
@@ -109,7 +90,7 @@ string Member::getExpiryDate(char subsType) {
 		addDays = 365;
 
 	for (int i = 0; i < addDays; i++) {
-		if (Cday < daysOfMonth[Cmonth-1])
+		if (Cday < daysOfMonth[Cmonth - 1])
 			Cday++;
 		else if (Cday == daysOfMonth[Cmonth - 1] && Cmonth < 12) {
 			Cday = 1;
@@ -126,12 +107,12 @@ string Member::getExpiryDate(char subsType) {
 	month = (Cmonth < 10) ? "0" + to_string(Cmonth) : to_string(Cmonth);
 	year = to_string(Cyear);
 
-//	cout << day << "/" << month << "/" << year << endl; //uncomment to see the difference
-//	cout << Cday << "/" << Cmonth << "/" << Cyear << endl;
+	//	cout << day << "/" << month << "/" << year << endl; //uncomment to see the difference
+	//	cout << Cday << "/" << Cmonth << "/" << Cyear << endl;
 
-	//char expDate = Cday + Cmonth + Cyear;
-	//cout << expDate;
-	//string expDate2 = to_string(Cday);
+		//char expDate = Cday + Cmonth + Cyear;
+		//cout << expDate;
+		//string expDate2 = to_string(Cday);
 
 	return day + month + year;
 }
@@ -153,6 +134,7 @@ void Member::dequeueMember() {
 bool Member::Empty() {
 	return(count == 0);
 }
+
 void Member::simpleSort() {
 	for (int i = 0; i < size - 1; i++) {
 		int min = i;
@@ -188,28 +170,52 @@ void Member::displaySortedList() {
 	}
 }
 
-void Member::renewSubs() {
-	simpleSort();
-	displaySortedList();
+void Member::loadData() {
 
-	string numIC;
-	char type;
-	cout << "Enter IC number: ";
-	cin >> numIC;
-	cout << "Choose subscription type (M-Monthly / A-Annually): ";
-	cin >> type;
+	ifstream readFile("data.txt", ios::in);
 
-	for (int i = 0; i < size; i++) {
-		if (numIC == memberList[i].ic) {
-			memberList[i].type = type;
-			memberList[i].expDate = getExpiryDate(type);
+	while (readFile.is_open()) {
+		readFile >> size; // get total of data has been stored
+		for (int i = 0; i < size; i++) {
+			readFile.get();
+			getline(readFile, memberList[i].name);
+			getline(readFile, memberList[i].ic);
+			readFile
+				>> memberList[i].memberID
+				>> memberList[i].gender
+				>> memberList[i].age
+				>> memberList[i].type
+				>> memberList[i].expDate
+				>> memberList[i].height
+				>> memberList[i].weight
+				>> memberList[i].bmi;
+			memID = memberList[i].memberID; // get latest value of memberID to generate new memberID for new registration
 		}
+		cout << "File Loaded Successfully" << endl;
+		readFile.close();
 	}
-
-	cout << "Process succeed!" << endl;
 }
+
+string Member::getCurrentDate() {
+#pragma warning(disable : 4996)
+	time_t currenttime = time(0);
+	tm* now = localtime(&currenttime);
+
+	int Cyear, Cmonth, Cday;
+	string day, month, year;
+	Cyear = 1900 + now->tm_year;
+	Cmonth = 1 + now->tm_mon;
+	Cday = now->tm_mday;
+
+	day = (Cday < 10) ? "0" + to_string(Cday) : to_string(Cday);
+	month = (Cmonth < 10) ? "0" + to_string(Cmonth) : to_string(Cmonth);
+	year = to_string(Cyear);
+
+	return day + month + year;
+}
+
 void Member::displayExpired() {
-	simpleSort();
+	//simpleSort();
 
 	cout << setw(10) << "\nExpired Membership Namelist\n" << setw(10) << endl;
 
@@ -217,12 +223,11 @@ void Member::displayExpired() {
 		<< setw(12) << "HEIGHT" << setw(12) << "WEIGHT" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
 		<< setw(15) << "EXPIRY DATE" << endl;
 	for (int i = 0; i < size; i++) {
-		//if (stoi(memberList[i].expDate) > cDate) {
 		if (memberList[i].expDate < getCurrentDate()) {
-		cout << left << setw(25) << memberList[i].name << setw(17) << memberList[i].ic << setw(8)
-			<< memberList[i].age << setw(12) << memberList[i].gender << setw(12) << memberList[i].height << setw(12)
-			<< memberList[i].weight << setw(20) << memberList[i].type << setw(15) << memberList[i].memberID
-			<< setw(15) << memberList[i].expDate << endl;
+			cout << left << setw(25) << memberList[i].name << setw(17) << memberList[i].ic << setw(8)
+				<< memberList[i].age << setw(12) << memberList[i].gender << setw(12) << memberList[i].height << setw(12)
+				<< memberList[i].weight << setw(20) << memberList[i].type << setw(15) << memberList[i].memberID
+				<< setw(15) << memberList[i].expDate << endl;
 		}
 	}
 }
@@ -284,28 +289,23 @@ void Member::addItem() {
 	remove("data.txt");
 	rename("temp.txt", "data.txt");
 }
-void Member::loadData() {
+void Member::renewSubs() {
+	simpleSort();
+	displaySortedList();
 
-	ifstream readFile("data.txt", ios::in);
+	string numIC;
+	char type;
+	cout << "Enter IC number: ";
+	cin >> numIC;
+	cout << "Choose subscription type (M-Monthly / A-Annually): ";
+	cin >> type;
 
-	while (readFile.is_open()) {
-		readFile >> size;
-		for (int i = 0; i < size; i++) {
-			readFile.get();
-			getline(readFile, memberList[i].name); 
-			getline(readFile, memberList[i].ic);
-			readFile
-				>> memberList[i].memberID
-				>> memberList[i].gender
-				>> memberList[i].age
-				>> memberList[i].type
-				>> memberList[i].expDate
-				>> memberList[i].height
-				>> memberList[i].weight
-				>> memberList[i].bmi;
-			memID = memberList[i].memberID; // get latest value of memberID to generate new memberID for new registration
+	for (int i = 0; i < size; i++) {
+		if (numIC == memberList[i].ic) {
+			memberList[i].type = type;
+			memberList[i].expDate = getExpiryDate(type);
 		}
 	}
-	cout << "File Loaded Successfully" << endl;
-	readFile.close();
+
+	cout << "Process succeed!" << endl;
 }

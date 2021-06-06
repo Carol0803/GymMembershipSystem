@@ -20,7 +20,7 @@ struct Details {
 	char type; // M-Monthly , A-Annually
 	string expDate; // char expDate
 	double height, weight;
-	double bmi;
+	float bmi;
 };
 
 struct Node {
@@ -37,7 +37,7 @@ private:
 	Node* front;
 	Node* rear;
 
-	int size;
+	int size = 0;
 	int memID = 0;
 	Details memberList[maxSize];
 
