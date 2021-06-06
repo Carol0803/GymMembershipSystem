@@ -15,15 +15,14 @@ int main()
     // cout << New.total << endl; // to display total data before loadData
 
     //New.loadData();
-
-    // cout << New.total; // to display total data after loadData
 =======
+    New.loadData();
 >>>>>>> upstream/master
 
     do {
         displayMainMenu();
         cin >> selectMenu;
-        if (selectMenu < 0 || selectMenu > 4) {
+        if (selectMenu < 0 || selectMenu > 5) {
             cout << "\nNo operation selected. Try again.\n";
         }
         else if (selectMenu == 0) {
@@ -36,14 +35,18 @@ int main()
         else if (selectMenu == 2) {
             New.addItem();
         }
-        else if (selectMenu == 3) {
+        else if (selectMenu == 3) { //renew 
+            New.renewSubs();
         }
         else if (selectMenu == 4) {
-        New.simpleSort();
-        New.displaySortedList();
+            //New.simpleSort();
+            New.displaySortedList();
+        }
+        else if (selectMenu == 5) { // view expired namelist
+            New.displayExpired();
         }
         else {}
-    } while (selectMenu > -1 && selectMenu < 5);
+    } while (selectMenu > -1 && selectMenu < 6);
 
     return 0;
 }

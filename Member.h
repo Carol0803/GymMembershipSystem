@@ -6,6 +6,7 @@
 #include <cctype>
 #include <cmath>
 #include <iomanip>
+#include <time.h>
 using namespace std;
 #pragma once
 
@@ -31,11 +32,11 @@ const int maxSize = 500;
 
 class Member {
 private:
-	int count; //page 123
+	int count = 0; //page 123
 	Node* front;
 	Node* rear;
 
-	int size;
+	int size = 0;
 	int memID = 0;
 	Details memberList[maxSize];
 
@@ -50,11 +51,14 @@ public:
 	string getExpiryDate(char);
 	void dequeueMember();
 	bool Empty();
-	
-	void addItem();	//process registration
 
+	string getCurrentDate();
+	void renewSubs();
+	void displayExpired();
+	
 	void simpleSort();	//display item
 	void displaySortedList();
+	void addItem();	//process registration
 
 	//void loadData(); // load existing data from stored file
 
