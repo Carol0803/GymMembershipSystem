@@ -11,7 +11,11 @@ int main()
     Member New;
     int selectMenu;
 
+    // cout << New.total << endl; // to display total data before loadData
+
+    //New.loadData();
     New.loadData();
+
 
     do {
         displayMainMenu();
@@ -33,7 +37,7 @@ int main()
             New.renewSubs();
         }
         else if (selectMenu == 4) {
-            //New.simpleSort();
+            New.simpleSort();
             New.displaySortedList();
         }
         else if (selectMenu == 5) { // view expired namelist

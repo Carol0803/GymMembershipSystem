@@ -29,7 +29,6 @@ struct Node {
 };
 
 const int maxSize = 500;
-//int memID = 0;
 
 class Member {
 private:
@@ -42,6 +41,7 @@ private:
 	Details memberList[maxSize];
 
 	Details sortedList[maxSize];
+	
 
 public:
 	int total = 0;
