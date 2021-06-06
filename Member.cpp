@@ -55,7 +55,6 @@ void Member::enqueueMember() {
 	cin >> N->data.weight;
 
 	N->data.bmi = ("%.2f", (N->data.weight / pow(N->data.height, 2)));
-
 	cout << (float)N->data.bmi;
 
 	//generate member ID 
@@ -141,6 +140,19 @@ bool Member::Empty() {
 }
 
 void Member::simpleSort() {
+	for (int i = 0; i < size; i++) {
+		sortedList[i].name = memberList[i].name;
+		sortedList[i].ic = memberList[i].ic;
+		sortedList[i].memberID = memberList[i].memberID;
+		sortedList[i].gender = memberList[i].gender;
+		sortedList[i].age = memberList[i].age;
+		sortedList[i].type = memberList[i].type;
+		sortedList[i].expDate = memberList[i].expDate;
+		sortedList[i].height = memberList[i].height;
+		sortedList[i].weight = memberList[i].weight;
+		sortedList[i].bmi = memberList[i].bmi;
+	}
+
 	for (int i = 0; i < size - 1; i++) {
 		int min = i;
 		for (int j = i + 1; j < size; j++) {
@@ -165,14 +177,14 @@ void Member::displaySortedList() {
 
 	string gender[maxSize], type[maxSize];
 	for (int a = 0; a < size; a++) {
-		if (memberList[a].gender == 'M' || memberList[a].gender == 'm')
+		if (sortedList[a].gender == 'M' || sortedList[a].gender == 'm')
 			gender[a] = "Male";
-		else if (memberList[a].gender == 'F' || memberList[a].gender == 'f')
+		else if (sortedList[a].gender == 'F' || sortedList[a].gender == 'f')
 			gender[a] = "Female";
 
-		if (memberList[a].type == 'M' || memberList[a].type == 'm')
+		if (sortedList[a].type == 'M' || sortedList[a].type == 'm')
 			type[a] = "Monthly";
-		else if (memberList[a].type == 'A' || memberList[a].type == 'a')
+		else if (sortedList[a].type == 'A' || sortedList[a].type == 'a')
 			type[a] = "Annually";
 	}
 	cout << "===================================================================================================================================\n";
@@ -183,9 +195,10 @@ void Member::displaySortedList() {
 		<< setw(12) << "HEIGHT(M)" << setw(12) << "WEIGHT(KG)" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
 		<< setw(15) << "EXPIRY DATE" << endl;
 	for (int i = 0; i < size; i++) {
-		cout << fixed << left << setw(4) << i + 1 << setw(20) << memberList[i].name << setw(17) << memberList[i].ic << setw(8)
-			<< memberList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << memberList[i].height << setw(12)
-			<< setprecision(2) << memberList[i].weight << setw(20) << type[i] << setw(15) << memberList[i].memberID 			<< setw(15) << memberList[i].expDate << endl;
+		cout << fixed << left << setw(4) << i + 1 << setw(20) << sortedList[i].name << setw(17) << sortedList[i].ic << setw(8)
+			<< sortedList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << sortedList[i].height << setw(12)
+			<< setprecision(2) << sortedList[i].weight << setw(20) << type[i] << setw(15) << sortedList[i].memberID 			
+			<< setw(15) << sortedList[i].expDate << endl;
 	}
 }
 
@@ -309,13 +322,7 @@ void Member::addItem() {
 		memberList[i].height = front->data.height;
 		memberList[i].weight = front->data.weight;
 		memberList[i].bmi = front->data.bmi;
-
-		size++;
 		
-		dequeueMember();
-		if (Empty())
-			break;
-
 		dequeueMember();
 		writeFile
 			<< memberList[i].name << endl
@@ -333,70 +340,9 @@ void Member::addItem() {
 	remove("data.txt");
 	rename("temp.txt", "data.txt");
 
-
-void Member::simpleSort() {
-	for (int i = 0; i < size - 1; i++) {
-		int min = i;
-		for (int j = i + 1; j < size; j++) {
-			int a = 0;
-			while (memberList[j].name[a] == memberList[min].name[a]) {
-				a++;
-				if (memberList[j].name[a] != memberList[min].name[a])
-					break;
-			}
-			if (memberList[j].name[a] < memberList[min].name[a])
-				min = j;
-		}
-	
-		Details temp;
-		temp = memberList[min];
-		memberList[min] = memberList[i];
-		memberList[i] = temp;
-	}
-}
-
-void Member::displaySortedList () {
-	string gender[maxSize], type[maxSize];
-	for (int a = 0; a < size; a++) {
-		if (memberList[a].gender == 'M' || memberList[a].gender == 'm')
-			gender[a] = "Male";
-		else if (memberList[a].gender == 'F' || memberList[a].gender == 'f')
-			gender[a] = "Female";
-
-		if (memberList[a].type == 'M' || memberList[a].type == 'm')
-			type[a] = "Monthly";
-		else if (memberList[a].type == 'A' || memberList[a].type == 'a')
-			type[a] = "Annually";
-	}
-
-	cout << "===================================================================================================================================\n";
-	cout << right << setw(75) << "MEMBER'S NAMELIST" << endl;
-	cout << "===================================================================================================================================\n";
-
-	cout <<left << setw(4) << "NO." << setw(20) << "NAME" << setw(17) << "IC NO." << setw(8) << "AGE" << setw(12) << "GENDER"
-		<< setw(12) << "HEIGHT(M)" << setw(12) << "WEIGHT(KG)" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
-		<< setw(15) << "EXPIRY DATE" << endl;
-	for (int i = 0; i < size; i++) {
-		cout << fixed << left<< setw(4) << i + 1 << setw(20) << memberList[i].name << setw(17) << memberList[i].ic << setw(8)
-			<< memberList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << memberList[i].height << setw(12)
-			<< setprecision(2) << memberList[i].weight << setw(20) << type[i] << setw(15) << memberList[i].memberID
-			<< setw(15) << memberList[i].expDate << endl;
-	
-	for (int i = 0; i < size; i++) {
-		sortedList[i].name = memberList[i].name;
-		sortedList[i].ic = memberList[i].ic;
-		sortedList[i].memberID = memberList[i].memberID;
-		sortedList[i].gender = memberList[i].gender;
-		sortedList[i].age = memberList[i].age;
-		sortedList[i].type = memberList[i].type;
-		sortedList[i].expDate = memberList[i].expDate;
-		sortedList[i].height = memberList[i].height;
-		sortedList[i].weight = memberList[i].weight;
-		sortedList[i].bmi = memberList[i].bmi;
-	}
-
 	cout << "Succeed!\n";
 }
+
 void Member::renewSubs() {
 	simpleSort();
 	displaySortedList();

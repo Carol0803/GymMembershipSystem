@@ -12,7 +12,7 @@ using namespace std;
 
 struct Details {
 	string name;
-	string memberID;
+	int memberID;
 	//char toupper(gender); // M-Male , F-Female
 	char gender;
 	string ic; // char ic[12]; can convert to char
@@ -60,7 +60,7 @@ public:
 	void displaySortedList();
 	void addItem();	//process registration
 
-	//void loadData(); // load existing data from stored file
+	void loadData(); // load existing data from stored file
 
 };
 
