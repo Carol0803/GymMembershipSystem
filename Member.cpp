@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include<iomanip>
 #include "Member.h"
 using namespace std;
 
@@ -24,7 +25,7 @@ void Member::enqueueMember() {
 	
 	cout << "Enter IC Number: ";
 	//for (int i = 0; i < 12; i++)
-		cin >> N->data.ic;
+	cin >> N->data.ic;
 
 	//generate age
 	int year;
@@ -56,7 +57,7 @@ void Member::enqueueMember() {
 
 	//generate member ID 
 	//memID++;
-	N->data.memberID = ++memID;
+	//N->data.memberID = ++memID;
 
 	N->next = NULL;
 
@@ -89,7 +90,7 @@ string Member::getExpiryDate(char subsType) {
 		addDays = 365;
 
 	for (int i = 0; i < addDays; i++) {
-		if (Cday < daysOfMonth[Cmonth - 1])
+		if (Cday < daysOfMonth[Cmonth-1])
 			Cday++;
 		else if (Cday == daysOfMonth[Cmonth - 1] && Cmonth < 12) {
 			Cday = 1;
@@ -140,16 +141,20 @@ void Member::addItem() {
 		cout << "Max number of members reached.";
 		return;
 	}
+
 	for (int i = 0; size < maxSize - 1; i++) {
 
 		if (Empty())
 			break;
-
+		if (size == maxSize){
+			cout << "Max number of members reached.";
+			return;
+		}
+		
 		memberList[i].name = front->data.name;
 		memberList[i].memberID = front->data.memberID;
 		memberList[i].gender = front->data.gender;
-		for (int a = 0; a < 12; a++)
-			memberList[i].ic[a] = front->data.ic[a];
+		memberList[i].ic = front->data.ic;
 		memberList[i].age = front->data.age;
 		memberList[i].type = front->data.type;
 		memberList[i].expDate = front->data.expDate;
@@ -161,6 +166,42 @@ void Member::addItem() {
 		size++;
 	}
 	//here add write file function to data.txt
+}
+
+
+void Member::simpleSort() {
+	for (int i = 0; i < size - 1; i++) {
+		int min = i;
+		for (int j = i + 1; j < size; j++) {
+			int a = 0;
+			while (memberList[j].name[a] == memberList[min].name[a]) {
+				a++;
+				if (memberList[j].name[a] != memberList[min].name[a])
+					break;
+			}
+			if (memberList[j].name[a] < memberList[min].name[a])
+				min = j;
+		}
+	
+		Details temp;
+		temp = memberList[min];
+		memberList[min] = memberList[i];
+		memberList[i] = temp;
+	}
+}
+
+void Member::displaySortedList () {
+	cout << setw(10) << "\n\tMember's Namelist\n" << setw(10) << endl;
+
+	cout <<left << setw(4) << "NO." << setw(25) << "NAME" << setw(17) << "IC NO." << setw(8) << "AGE" << setw(12) << "GENDER"
+		<< setw(12) << "HEIGHT" << setw(12) << "WEIGHT" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
+		<< setw(15) << "EXPIRY DATE" << endl;
+	for (int i = 0; i < size; i++) {
+		cout << left<< setw(4) << i + 1 << setw(25) << memberList[i].name << setw(17) << memberList[i].ic << setw(8)
+			<< memberList[i].age << setw(12) << memberList[i].gender << setw(12) << memberList[i].height << setw(12)
+			<< memberList[i].weight << setw(20) << memberList[i].type << setw(15) << memberList[i].memberID
+			<< setw(15) << memberList[i].expDate << endl;
+	}
 }
 
 void Member::loadData() {
@@ -192,3 +233,4 @@ void Member::loadData() {
 			readFile.close();
 		}
 }
+

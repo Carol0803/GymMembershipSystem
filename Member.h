@@ -40,6 +40,8 @@ private:
 	int memID = 0;
 	Details memberList[maxSize];
 
+	Details sortedList[maxSize];
+
 public:
 	int total = 0;
 	Member();
@@ -50,7 +52,12 @@ public:
 	bool Empty();
 	
 	void addItem();	//process registration
+
+	void simpleSort();	//display item
+	void displaySortedList();
+
 	void loadData(); // load existing data from stored file
+
 };
 
 #endif // !MEMBER_H
