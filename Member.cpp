@@ -55,30 +55,13 @@ void Member::enqueueMember() {
 	cin >> N->data.weight;
 
 	N->data.bmi = ("%.2f", (N->data.weight / pow(N->data.height, 2)));
-<<<<<<< HEAD
-	//cout << (float) N->data.bmi;
 
-	//generate member ID 
-	memID++;
-	if (memID < 10)
-		N->data.memberID = "00" + to_string(memID);
-	else if (9 < memID < 100)
-		N->data.memberID = "0" + to_string(memID);
-	else
-		N->data.memberID = to_string(memID);
-
-	if (subsType == 'M' || subsType == 'm')
-		N->data.memberID = "M" + N->data.memberID;
-	else if (subsType == 'A' || subsType == 'a')
-		N->data.memberID = "A" + N->data.memberID;
-=======
 	cout << (float)N->data.bmi;
 
 	//generate member ID 
 	if (memID == 0)
 		memID = 1000;
 	N->data.memberID = ++memID;
->>>>>>> upstream/master
 
 	N->next = NULL;
 
@@ -287,25 +270,13 @@ void Member::addItem() {
 	cout << "\t\tPROCESS REGISTRATION" << endl;
 	cout << "======================================================\n";
 	cout << "Processing..." << endl;
-<<<<<<< HEAD
 
-=======
->>>>>>> upstream/master
 	if(size == maxSize)
 	{
 		cout << "Max number of members reached.";
 		return;
 	}
 
-<<<<<<< HEAD
-
-	for (int i = size; size < maxSize - 1; i++) {
-		if (size == maxSize) {
-			cout << "Max number of members reached.";
-			return;
-		}
-		
-=======
 	int k = 0;
 	ofstream writeFile("temp.txt", ios::out | ios::app);
 	writeFile << size << endl;
@@ -328,7 +299,6 @@ void Member::addItem() {
 		if (Empty())
 			break;
 
->>>>>>> upstream/master
 		memberList[i].name = front->data.name;
 		memberList[i].memberID = front->data.memberID;
 		memberList[i].gender = front->data.gender;
@@ -339,13 +309,12 @@ void Member::addItem() {
 		memberList[i].height = front->data.height;
 		memberList[i].weight = front->data.weight;
 		memberList[i].bmi = front->data.bmi;
-<<<<<<< HEAD
+
 		size++;
 		
 		dequeueMember();
 		if (Empty())
 			break;
-=======
 
 		dequeueMember();
 		writeFile
@@ -359,13 +328,12 @@ void Member::addItem() {
 			<< memberList[i].height << endl
 			<< memberList[i].weight << endl
 			<< memberList[i].bmi << endl;
->>>>>>> upstream/master
 	}
 	writeFile.close();
 	remove("data.txt");
 	rename("temp.txt", "data.txt");
 
-<<<<<<< HEAD
+
 void Member::simpleSort() {
 	for (int i = 0; i < size - 1; i++) {
 		int min = i;
@@ -413,7 +381,7 @@ void Member::displaySortedList () {
 			<< memberList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << memberList[i].height << setw(12)
 			<< setprecision(2) << memberList[i].weight << setw(20) << type[i] << setw(15) << memberList[i].memberID
 			<< setw(15) << memberList[i].expDate << endl;
-=======
+	
 	for (int i = 0; i < size; i++) {
 		sortedList[i].name = memberList[i].name;
 		sortedList[i].ic = memberList[i].ic;
@@ -425,7 +393,6 @@ void Member::displaySortedList () {
 		sortedList[i].height = memberList[i].height;
 		sortedList[i].weight = memberList[i].weight;
 		sortedList[i].bmi = memberList[i].bmi;
->>>>>>> upstream/master
 	}
 
 	cout << "Succeed!\n";
@@ -441,44 +408,19 @@ void Member::renewSubs() {
 	cout << "Choose subscription type (M-Monthly / A-Annually): ";
 	cin >> type;
 
-<<<<<<< HEAD
-/*void Member::loadData() {
-	static int n[1000];
-	int existingSize = 0;
-
-		ifstream readFile("data.txt", ios::in);
-
-		while (readFile.is_open()) {
-			readFile >> existingSize;
-			size = existingSize; // get total of data has been stored
-			for (int i = 0; i < size; i++) {
-				readFile.get();
-				getline(readFile, memberList[i].name); 
-				getline(readFile, memberList[i].ic);
-				readFile
-					>> memberList[i].memberID
-					>> memberList[i].gender
-					>> memberList[i].age
-					>> memberList[i].type
-					>> memberList[i].expDate
-					>> memberList[i].height
-					>> memberList[i].weight
-					>> memberList[i].bmi;
-				memID = memberList[i].memberID; // get latest value of memberID to generate new memberID for new registration
-			}
-		cout << "File Loaded Successfully" << endl;
-		total = size;
-			readFile.close();
-		}
-}*/
-=======
 	for (int i = 0; i < size; i++) {
 		if (numIC == memberList[i].ic) {
 			memberList[i].type = type;
 			memberList[i].expDate = getExpiryDate(type);
 		}
 	}
->>>>>>> upstream/master
+
+	for (int i = 0; i < size; i++) {
+		if (numIC == memberList[i].ic) {
+			memberList[i].type = type;
+			memberList[i].expDate = getExpiryDate(type);
+		}
+	}
 
 	cout << "Process succeed!" << endl;
 }
