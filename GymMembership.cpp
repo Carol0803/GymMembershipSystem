@@ -11,9 +11,6 @@ int main()
     Member New;
     int selectMenu;
 
-    // cout << New.total << endl; // to display total data before loadData
-
-    //New.loadData();
     New.loadData();
 
 
