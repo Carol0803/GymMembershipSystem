@@ -7,20 +7,19 @@
 #include <cmath>
 #include <iomanip>
 #include <time.h>
+#include <algorithm>
 using namespace std;
 #pragma once
 
 struct Details {
 	string name;
 	int memberID;
-	//char toupper(gender); // M-Male , F-Female
 	char gender;
-	string ic; // char ic[12]; can convert to char
+	string ic;
 	int age;
-	char type; // M-Monthly , A-Annually
-	string expDate; // char expDate
-	double height, weight;
-	float bmi;
+	char type;
+	string expDate;
+	double height, weight, bmi;
 };
 
 struct Node {
@@ -32,7 +31,7 @@ const int maxSize = 500;
 
 class Member {
 private:
-	int count = 0; //page 123
+	int count = 0;
 	Node* front;
 	Node* rear;
 
@@ -48,17 +47,18 @@ public:
 	Member();
 	~Member();
 	void enqueueMember();	//new registration
-	string getExpiryDate(char);
 	void dequeueMember();
+	string getExpiryDate(char); // get expiry date for membership registration
+	string getCurrentDate(); // get current date for comparison
 	bool Empty();
 
-	string getCurrentDate();
-	void renewSubs();
-	void displayExpired();
+	void renewSubs(); // function to renew subscription based on plan
+	void displayExpired(); // display namelist of expired membership
+	void displaySortedList(); // display namelist in sorted array
+	void fetchData(); // fetch data from main array into sub-array
 	
-	void simpleSort();	//display item
-	void displaySortedList();
-	void addItem();	//process registration
+	void simpleSort();	// sort array
+	void addItem();	// process registration from linked list into array and write the data in a file
 
 	void loadData(); // load existing data from stored file
 

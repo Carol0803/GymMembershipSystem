@@ -26,7 +26,6 @@ void Member::enqueueMember() {
 	getline(cin, N->data.name);
 
 	cout << "Enter IC Number: ";
-	//for (int i = 0; i < 12; i++)
 	cin >> N->data.ic;
 
 	//generate age
@@ -46,8 +45,6 @@ void Member::enqueueMember() {
 	char subsType = N->data.type;
 	N->data.expDate = getExpiryDate(subsType);
 
-	//cout << N->data.expDate << endl; // uncomment this if u want to see the output
-
 	cout << "Enter height(in metre): ";
 	cin >> N->data.height;
 
@@ -55,7 +52,7 @@ void Member::enqueueMember() {
 	cin >> N->data.weight;
 
 	N->data.bmi = ("%.2f", (N->data.weight / pow(N->data.height, 2)));
-	cout << (float)N->data.bmi;
+	cout << N->data.bmi;
 
 	//generate member ID 
 	if (memID == 0)
@@ -107,18 +104,11 @@ string Member::getExpiryDate(char subsType) {
 		}
 	}
 
-	day = (Cday < 10) ? "0" + to_string(Cday) + "/" : to_string(Cday) + "/";
-	month = (Cmonth < 10) ? "0" + to_string(Cmonth) + "/" : to_string(Cmonth) +"/";
+	day = (Cday < 10) ? "0" + to_string(Cday) : to_string(Cday);
+	month = (Cmonth < 10) ? "0" + to_string(Cmonth) : to_string(Cmonth);
 	year = to_string(Cyear);
 
-	//	cout << day << "/" << month << "/" << year << endl; //uncomment to see the difference
-	//	cout << Cday << "/" << Cmonth << "/" << Cyear << endl;
-
-		//char expDate = Cday + Cmonth + Cyear;
-		//cout << expDate;
-		//string expDate2 = to_string(Cday);
-
-	return day + month + year;
+	return day + "/" + month + "/" + year;
 }
 
 void Member::dequeueMember() {
@@ -139,7 +129,7 @@ bool Member::Empty() {
 	return(count == 0);
 }
 
-void Member::simpleSort() {
+void Member::fetchData() {
 	for (int i = 0; i < size; i++) {
 		sortedList[i].name = memberList[i].name;
 		sortedList[i].ic = memberList[i].ic;
@@ -152,6 +142,10 @@ void Member::simpleSort() {
 		sortedList[i].weight = memberList[i].weight;
 		sortedList[i].bmi = memberList[i].bmi;
 	}
+}
+
+void Member::simpleSort() {
+	fetchData();
 
 	for (int i = 0; i < size - 1; i++) {
 		int min = i;
@@ -162,7 +156,7 @@ void Member::simpleSort() {
 				if (sortedList[j].name[a] != sortedList[min].name[a])
 					break;
 			}
-			if (sortedList[j].name[a] < sortedList[min].name[a])
+			if (sortedList[j].name < sortedList[min].name)
 				min = j;
 		}
 
@@ -244,11 +238,12 @@ string Member::getCurrentDate() {
 	month = (Cmonth < 10) ? "0" + to_string(Cmonth) : to_string(Cmonth);
 	year = to_string(Cyear);
 
-	return day + month + year;
+	return year + month + day;
 }
 
 void Member::displayExpired() {
-	//simpleSort();
+	fetchData();
+	simpleSort();
 	string gender[maxSize], type[maxSize];
 	for (int a = 0; a < size; a++) {
 		if (memberList[a].gender == 'M' || memberList[a].gender == 'm')
@@ -263,17 +258,29 @@ void Member::displayExpired() {
 	}
 
 	cout << "===================================================================================================================================\n";
-	cout << right << setw(75) << "MEMBER'S NAMELIST" << endl;
+	cout << right << setw(75) << "EXPIRED MEMBERSHIP NAMELIST" << endl;
 	cout << "===================================================================================================================================\n";
 
 	cout << left << setw(20) << "NAME" << setw(17) << "IC NO." << setw(8) << "AGE" << setw(12) << "GENDER"
 		<< setw(12) << "HEIGHT(M)" << setw(12) << "WEIGHT(KG)" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
 		<< setw(15) << "EXPIRY DATE" << endl;
+
+	string cD = getCurrentDate(); // currentDate
+
 	for (int i = 0; i < size; i++) {
-		if (memberList[i].expDate < getCurrentDate()) {
-			cout << fixed << left << setw(20) << memberList[i].name << setw(17) << memberList[i].ic << setw(8)
-			<< memberList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << memberList[i].height << setw(12)
-			<< setprecision(2) << memberList[i].weight << setw(20) << type[i] << setw(15) << memberList[i].memberID << setw(15) << memberList[i].expDate << endl;
+		string eD = sortedList[i].expDate; // expiredDate
+		string chars = "/";
+
+		for (char c : chars) 
+			eD.erase(remove(eD.begin(), eD.end(), c), eD.end());
+
+		string d = string() + eD.substr(4, 7) + eD.substr(2, 2) + eD.substr(0, 2);
+
+		if (cD > d) {
+			cout << fixed << left << setw(20) << sortedList[i].name << setw(17) << sortedList[i].ic << setw(8)
+				<< sortedList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << sortedList[i].height << setw(12)
+				<< setprecision(2) << sortedList[i].weight << setw(20) << type[i] << setw(15) << sortedList[i].memberID
+				<< setw(15) << sortedList[i].expDate << endl;
 		}
 	}
 }
@@ -360,13 +367,11 @@ void Member::renewSubs() {
 			memberList[i].expDate = getExpiryDate(type);
 		}
 	}
-
 	for (int i = 0; i < size; i++) {
 		if (numIC == memberList[i].ic) {
 			memberList[i].type = type;
 			memberList[i].expDate = getExpiryDate(type);
 		}
 	}
-
 	cout << "Process succeed!" << endl;
 }
