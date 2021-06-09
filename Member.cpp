@@ -191,7 +191,7 @@ void Member::displaySortedList() {
 	for (int i = 0; i < size; i++) {
 		cout << fixed << left << setw(4) << i + 1 << setw(20) << sortedList[i].name << setw(17) << sortedList[i].ic << setw(8)
 			<< sortedList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << sortedList[i].height << setw(12)
-			<< setprecision(2) << sortedList[i].weight << setw(20) << type[i] << setw(15) << sortedList[i].memberID 			
+			<< setprecision(2) << sortedList[i].weight << setw(20) << type[i] << setw(15) << sortedList[i].memberID
 			<< setw(15) << sortedList[i].expDate << endl;
 	}
 }
@@ -271,7 +271,7 @@ void Member::displayExpired() {
 		string eD = sortedList[i].expDate; // expiredDate
 		string chars = "/";
 
-		for (char c : chars) 
+		for (char c : chars)
 			eD.erase(remove(eD.begin(), eD.end(), c), eD.end());
 
 		string d = string() + eD.substr(4, 7) + eD.substr(2, 2) + eD.substr(0, 2);
@@ -291,7 +291,7 @@ void Member::addItem() {
 	cout << "======================================================\n";
 	cout << "Processing..." << endl;
 
-	if(size == maxSize)
+	if (size == maxSize)
 	{
 		cout << "Max number of members reached.";
 		return;
@@ -329,7 +329,7 @@ void Member::addItem() {
 		memberList[i].height = front->data.height;
 		memberList[i].weight = front->data.weight;
 		memberList[i].bmi = front->data.bmi;
-		
+
 		dequeueMember();
 		writeFile
 			<< memberList[i].name << endl

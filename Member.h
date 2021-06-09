@@ -1,5 +1,6 @@
 #ifndef MEMBER_H
 #define MEMBER_H
+#define MAX_SIZE 38080
 
 #include <string>
 #include <fstream>
