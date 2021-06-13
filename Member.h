@@ -41,7 +41,7 @@ private:
 	Details memberList[maxSize];
 
 	Details sortedList[maxSize];
-	
+
 
 public:
 	int total = 0;
@@ -57,7 +57,7 @@ public:
 	void displayExpired(); // display namelist of expired membership
 	void displaySortedList(); // display namelist in sorted array
 	void fetchData(); // fetch data from main array into sub-array
-	
+
 	void simpleSort();	// sort array
 	void addItem();	// process registration from linked list into array and write the data in a file
 
@@ -66,5 +66,3 @@ public:
 };
 
 #endif // !MEMBER_H
-
-

@@ -181,17 +181,17 @@ void Member::displaySortedList() {
 		else if (sortedList[a].type == 'A' || sortedList[a].type == 'a')
 			type[a] = "Annually";
 	}
-	cout << "===================================================================================================================================\n";
+	cout << "============================================================================================================================================\n";
 	cout << right << setw(75) << "MEMBER'S NAMELIST" << endl;
-	cout << "===================================================================================================================================\n";
+	cout << "============================================================================================================================================\n";
 
 	cout << left << setw(4) << "NO." << setw(20) << "NAME" << setw(17) << "IC NO." << setw(8) << "AGE" << setw(12) << "GENDER"
-		<< setw(12) << "HEIGHT(M)" << setw(12) << "WEIGHT(KG)" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
+		<< setw(12) << "HEIGHT(M)" << setw(12) << "WEIGHT(KG)" << setprecision(2) << setw(8) << "BMI" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
 		<< setw(15) << "EXPIRY DATE" << endl;
 	for (int i = 0; i < size; i++) {
 		cout << fixed << left << setw(4) << i + 1 << setw(20) << sortedList[i].name << setw(17) << sortedList[i].ic << setw(8)
 			<< sortedList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << sortedList[i].height << setw(12)
-			<< setprecision(2) << sortedList[i].weight << setw(20) << type[i] << setw(15) << sortedList[i].memberID
+			<< setprecision(2) << sortedList[i].weight << setw(8) << setprecision(2) << sortedList[i].bmi << setw(20) << type[i] << setw(15) << sortedList[i].memberID
 			<< setw(15) << sortedList[i].expDate << endl;
 	}
 }
@@ -257,12 +257,12 @@ void Member::displayExpired() {
 			type[a] = "Annually";
 	}
 
-	cout << "===================================================================================================================================\n";
+	cout << "============================================================================================================================================\n";
 	cout << right << setw(75) << "EXPIRED MEMBERSHIP NAMELIST" << endl;
-	cout << "===================================================================================================================================\n";
+	cout << "============================================================================================================================================\n";
 
 	cout << left << setw(20) << "NAME" << setw(17) << "IC NO." << setw(8) << "AGE" << setw(12) << "GENDER"
-		<< setw(12) << "HEIGHT(M)" << setw(12) << "WEIGHT(KG)" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
+		<< setw(12) << "HEIGHT(M)" << setw(12) << "WEIGHT(KG)" << setw(8) << setprecision(2) << "BMI" << setw(20) << "SUBSCRIPTION TYPE" << setw(15) << "MEMBER ID"
 		<< setw(15) << "EXPIRY DATE" << endl;
 
 	string cD = getCurrentDate(); // currentDate
@@ -279,7 +279,7 @@ void Member::displayExpired() {
 		if (cD > d) {
 			cout << fixed << left << setw(20) << sortedList[i].name << setw(17) << sortedList[i].ic << setw(8)
 				<< sortedList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << sortedList[i].height << setw(12)
-				<< setprecision(2) << sortedList[i].weight << setw(20) << type[i] << setw(15) << sortedList[i].memberID
+				<< setprecision(2) << sortedList[i].weight << setw(8) << setprecision(2) << sortedList[i].bmi << setw(20) << type[i] << setw(15) << sortedList[i].memberID
 				<< setw(15) << sortedList[i].expDate << endl;
 		}
 	}
@@ -353,7 +353,9 @@ void Member::addItem() {
 void Member::renewSubs() {
 	simpleSort();
 	displaySortedList();
-
+	cout << "\n======================================================\n";
+	cout << "\t\tRENEW SUBSCRIPTION" << endl;
+	cout << "======================================================\n";
 	string numIC;
 	char type;
 	cout << "Enter IC number: ";
