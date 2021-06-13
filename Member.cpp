@@ -168,6 +168,8 @@ void Member::simpleSort() {
 
 void Member::displaySortedList() {
 
+	simpleSort();
+
 	string gender[maxSize], type[maxSize];
 	for (int a = 0; a < size; a++) {
 		if (sortedList[a].gender == 'M' || sortedList[a].gender == 'm')
@@ -240,7 +242,7 @@ string Member::getCurrentDate() {
 	return year + month + day;
 }
 
-void Member::displayExpired() {
+void Member::displayMember(int active) {
 	fetchData();
 	simpleSort();
 	string gender[maxSize], type[maxSize];
@@ -257,7 +259,10 @@ void Member::displayExpired() {
 	}
 
 	cout << "============================================================================================================================================\n";
-	cout << right << setw(75) << "EXPIRED MEMBERSHIP NAMELIST" << endl;
+	if (active == 1)
+		cout << right << setw(75) << "ACTIVE MEMBERSHIP NAMELIST" << endl;
+	else
+		cout << right << setw(75) << "EXPIRED MEMBERSHIP NAMELIST" << endl;
 	cout << "============================================================================================================================================\n";
 
 	cout << left << setw(20) << "NAME" << setw(17) << "IC NO." << setw(8) << "AGE" << setw(12) << "GENDER"
@@ -275,11 +280,21 @@ void Member::displayExpired() {
 
 		string d = string() + eD.substr(4, 7) + eD.substr(2, 2) + eD.substr(0, 2);
 
-		if (cD > d) {
-			cout << fixed << left << setw(20) << sortedList[i].name << setw(17) << sortedList[i].ic << setw(8)
-				<< sortedList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << sortedList[i].height << setw(12)
-				<< setprecision(2) << sortedList[i].weight << setw(8) << setprecision(2) << sortedList[i].bmi << setw(20) << type[i] << setw(15) << sortedList[i].memberID
-				<< setw(15) << sortedList[i].expDate << endl;
+		if (active == 0) {
+			if (cD > d) {
+				cout << fixed << left << setw(20) << sortedList[i].name << setw(17) << sortedList[i].ic << setw(8)
+					<< sortedList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << sortedList[i].height << setw(12)
+					<< setprecision(2) << sortedList[i].weight << setw(8) << setprecision(2) << sortedList[i].bmi << setw(20) << type[i] << setw(15) << sortedList[i].memberID
+					<< setw(15) << sortedList[i].expDate << endl;
+			}
+		}
+		else {
+			if (cD <= d) {
+				cout << fixed << left << setw(20) << sortedList[i].name << setw(17) << sortedList[i].ic << setw(8)
+					<< sortedList[i].age << setw(12) << gender[i] << setw(12) << setprecision(2) << sortedList[i].height << setw(12)
+					<< setprecision(2) << sortedList[i].weight << setw(8) << setprecision(2) << sortedList[i].bmi << setw(20) << type[i] << setw(15) << sortedList[i].memberID
+					<< setw(15) << sortedList[i].expDate << endl;
+			}
 		}
 	}
 }
@@ -370,8 +385,8 @@ void Member::renewSubs() {
 	}
 	for (int i = 0; i < size; i++) {
 		if (numIC == memberList[i].ic) {
-			memberList[i].type = type;
-			memberList[i].expDate = getExpiryDate(type);
+			sortedList[i].type = type;
+			sortedList[i].expDate = getExpiryDate(type);
 		}
 	}
 	cout << "Process succeed!" << endl;

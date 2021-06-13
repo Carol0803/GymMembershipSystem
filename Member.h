@@ -54,7 +54,7 @@ public:
 	bool Empty();
 
 	void renewSubs(); // function to renew subscription based on plan
-	void displayExpired(); // display namelist of expired membership
+	void displayMember(int); // display namelist of expired membership
 	void displaySortedList(); // display namelist in sorted array
 	void fetchData(); // fetch data from main array into sub-array
 
