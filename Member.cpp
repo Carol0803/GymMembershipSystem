@@ -52,7 +52,6 @@ void Member::enqueueMember() {
 	cin >> N->data.weight;
 
 	N->data.bmi = ("%.2f", (N->data.weight / pow(N->data.height, 2)));
-	cout << N->data.bmi;
 
 	//generate member ID 
 	if (memID == 0)

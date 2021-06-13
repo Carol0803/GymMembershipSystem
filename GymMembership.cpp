@@ -7,7 +7,13 @@ void displayMainMenu();
 
 int main()
 {
-    cout << "Gym Membership System\n";
+    cout << "======================================================================\n";
+    cout << "|                                                                    |\n";
+    cout << "|                                                                    |\n";
+    cout << "|\t\t\tGYM MEMBERSHIP SYSTEM\t\t\t     |\n";
+    cout << "|                                                                    |\n";
+    cout << "|                                                                    |\n";
+    cout << "======================================================================\n";
     Member New;
     int selectMenu;
 
