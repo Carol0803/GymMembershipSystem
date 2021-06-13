@@ -168,6 +168,8 @@ void Member::simpleSort() {
 
 void Member::displaySortedList() {
 
+	simpleSort();
+
 	string gender[maxSize], type[maxSize];
 	for (int a = 0; a < size; a++) {
 		if (sortedList[a].gender == 'M' || sortedList[a].gender == 'm')
@@ -370,8 +372,8 @@ void Member::renewSubs() {
 	}
 	for (int i = 0; i < size; i++) {
 		if (numIC == memberList[i].ic) {
-			memberList[i].type = type;
-			memberList[i].expDate = getExpiryDate(type);
+			sortedList[i].type = type;
+			sortedList[i].expDate = getExpiryDate(type);
 		}
 	}
 	cout << "Process succeed!" << endl;
