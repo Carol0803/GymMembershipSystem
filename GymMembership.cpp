@@ -34,7 +34,6 @@ int main()
             New.renewSubs();
         }
         else if (selectMenu == 4) {
-            //New.simpleSort();
             New.displaySortedList();
         }
         else if (selectMenu == 5) { // view expired namelist

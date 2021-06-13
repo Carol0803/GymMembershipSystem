@@ -169,6 +169,8 @@ void Member::simpleSort() {
 
 void Member::displaySortedList() {
 
+	simpleSort();
+
 	string gender[maxSize], type[maxSize];
 	for (int a = 0; a < size; a++) {
 		if (sortedList[a].gender == 'M' || sortedList[a].gender == 'm')
