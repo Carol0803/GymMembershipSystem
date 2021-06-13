@@ -4,6 +4,7 @@
 using namespace std;
 
 void displayMainMenu();
+void displayList();
 
 int main()
 {
@@ -18,7 +19,6 @@ int main()
     int selectMenu;
 
     New.loadData();
-
 
     do {
         displayMainMenu();
@@ -40,15 +40,32 @@ int main()
             New.renewSubs();
         }
         else if (selectMenu == 4) {
-            New.displaySortedList();
+            int c;
+            do {
+                displayList();
+                cin >> c;
+                if (c == 1) {
+                    New.displaySortedList();
+                }
+                if (c == 2) {
+                    New.displayMember(1);
+                }
+            } while (c < 1 || c > 2);
         }
         else if (selectMenu == 5) { // view expired namelist
-            New.displayExpired();
+            New.displayMember(0);
         }
         else {}
     } while (selectMenu > -1 && selectMenu < 6);
 
     return 0;
+}
+
+void displayList() {
+    cout << "\nSelect what to display:";
+    cout << "\n1.\tView all";
+    cout << "\n2.\tView active member only";
+    cout << "\nYour selection:";
 }
 
 void displayMainMenu() {
