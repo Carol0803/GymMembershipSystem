@@ -66,6 +66,41 @@ All the data in sortedList[] of all members that registered the membership will 
 The data include name, IC no., age, gender, height, weight, BMI, subscription type, member ID and membership expiry date.
 The data with double data type are displayed with two decimal points.
 
+void displayMember(int) - This function displays list of membership subscribers either active or expired membership.
+The function parameter will receive integer value either 0 or 1 based on input by user what it want to be displayed (Active / Expired).
+fetchData() and simpleSort() functions are called to get the current data into a sub-array list and sort it using simple sort algorithm.
+getCurrentDate() function also being called to get the current date value in YYYYMMDD format for comparison purpose later in this function.
+The function also will getting every expired date value from each membership data and they will go through a process to remove "/" symbol from its value.
+So it also will be in YYYYMMDD format.
+If the parameter value is 1, it will filter out the membership list with a condition current date is less than expired date. (Active membership list)
+Else if the paramater value is 0, it will filter out the membership list with a condition current date is greater than expired date. (Expired membership list)
+After the filter out process, the name list will be displayed.
+
+void renewSubs() - This function renew membership subscription.
+The function will start with run the simpleSort function and display the membership list through displaySortedList.
+Then, user will enter IC number of the member that want to renew their membership subscription and subscription type (Monthly or Annually).
+The program will calculate new expiry date for the subscription based on the current date and subscription type that has been entered.
+Subscription type and new expiry date will be updated in the main array, memberList[] and also sub array, sortedList[].
+
+void fetchData() - This function is used to fetch data from main array into a sub-array.
+The purpose of this function is to avoid any changes in main array list.
+So it will not affecting the main array list when the sorting function is being applied.
+A new sub array sortedList[] and main array memberList[] will be in a for-loop and going to stop depending on the size of the main array list.
+All data from each struct of memberList will be assigned into its own position in a new struct sortedList.
+For example: sortedList[1] is getting data from memberList[1]
+
+void loadData() - This function is to load any existing data from a stored file in the system.
+The function will read data.txt file and try to open it if it exist. If it doesn't exist, it will just skip it and end the function.
+It will read the very first line in data.txt which is a size of the current existing data that has been stored in this file.
+After that it will go through a for-loop to get each data from every line and assign it into main array list, memberList[] and stop after no line of data left to be read.
+
+void addItem() - This function add the data from queue linked list into main array list.
+The function starts with creating a new temporary file, temp.txt in the system.
+Then, the program will write each data from main array list, memberList[] into the temporary file.
+After it's done, each data from queue linked list will be assigned into the memberList[] and being dequeue right away.
+The data from this queue linked list will also be written in the temp.txt file.
+This process for queue linked list is being repeated until no data exist in the queue.
+data.txt file will be deleted if it's exist within the system and temp.txt will be renamed to a new data.txt file.
 
 */
 
