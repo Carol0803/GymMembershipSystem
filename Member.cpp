@@ -79,6 +79,7 @@ After the filter out process, the name list will be displayed.
 void renewSubs() - This function renew membership subscription.
 The function will start with run the simpleSort function and display the membership list through displaySortedList.
 Then, user will enter IC number of the member that want to renew their membership subscription and subscription type (Monthly or Annually).
+The function will do searching through the for loop iteration and if-statement to get into the specific member of the IC number that have been entered.
 The program will calculate new expiry date for the subscription based on the current date and subscription type that has been entered.
 Subscription type and new expiry date will be updated in the main array, memberList[] and also sub array, sortedList[].
 
@@ -101,6 +102,11 @@ After it's done, each data from queue linked list will be assigned into the memb
 The data from this queue linked list will also be written in the temp.txt file.
 This process for queue linked list is being repeated until no data exist in the queue.
 data.txt file will be deleted if it's exist within the system and temp.txt will be renamed to a new data.txt file.
+
+- Algorithm Analysis -
+Some function is doing O(n^2) iteration like simpleSort and displayMember function. But most of it are in O(n) iteration.
+Since this is a small project and consist of simple implementation that involves small data sets, it is efficient to use O(n^2) without having any difficulities.
+Thus, the overall algorithm analysis for this project is O(n^2).
 
 */
 
